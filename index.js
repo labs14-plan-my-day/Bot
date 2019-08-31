@@ -4,7 +4,7 @@ const server = require('./sever')
 
 
 const bot = new SlackBot({
-    token: 'xoxb-689980001927-686756441314-1vqFRRrUFHYy41wLNXgr42vs',
+    token: 'xoxb-689980001927-686756441314-BwZ6P5ppPNpaEEOfJeao74Zb',
     name: 'Plan My Day',
 
 })
