@@ -4,7 +4,7 @@ const server = require('./sever')
 
 
 const bot = new SlackBot({
-    token: 'xoxb-689980001927-686756441314-1vqFRRrUFHYy41wLNXgr42vs',
+    token: 'xoxb-689980001927-686756441314-ghI4SYcsNvoOX2HwnCufqv7k',
     name: 'Plan My Day',
 
 })
@@ -62,7 +62,7 @@ function sayHi() {
 
 function getTaskList(user) {
     console.log('this is user in the function',user)
-    axios.get(`http://localhost:8080/tasks/slack/${user}`)
+    axios.get(`https://plan-my-dayapp.herokuapp.com/tasks/slack/${user}`)
         .then(res => {
             let tasks = res.data
 
@@ -86,7 +86,7 @@ function runHelp() {
     bot.postMessageToChannel('general', `Type @planbot to get started`, params)
 } 
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 
 
 server.listen(port, () => console.log(`\nAPI running on port ${port}\n`));
