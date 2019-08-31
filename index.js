@@ -4,8 +4,8 @@ const server = require('./sever')
 
 
 const bot = new SlackBot({
-    token: 'xoxb-689980001927-686756441314-INt8Jnysz8bOZASem2TxcMy3',
-    name: 'Plan My Day'
+    token: 'xoxb-689980001927-686756441314-1vqFRRrUFHYy41wLNXgr42vs',
+    name: 'Plan My Day',
 
 })
 
@@ -22,25 +22,29 @@ bot.on('error', (err) => console.log(err))
 
 //message
 bot.on('message', (data) => {
-    console.log(data)
+    console.log(data.user)
+    let user = data.user
     if (data.type !== 'message') {
         return;
     }
 
-    handleMessage(data.text);
+    handleMessage(data);
 })
 
 
 
-function handleMessage(message) {
-    if (message.includes('@UL6N8CZ98')) {
-            if (message.includes('tasks')) {
-                getTaskList()
+function handleMessage(data) {
+    console.log(`this is data`,data)
+    console.log(`this is message`, data.text)
+    if (data.text.includes('@UL6N8CZ98')) {
+            if (data.text.includes('tasks')) {
+                console.log('this is user',data.user)
+                getTaskList(data.user)
             }
-            else if (message.includes('hello')) {
+            else if (data.text.includes('hello')) {
                 sayHi()
             }
-            else if (message.includes('help')) {
+            else if (data.text.includes('help')) {
                 runHelp();
             }
     }
@@ -56,11 +60,11 @@ function sayHi() {
     bot.postMessageToChannel('general', `Hello`, params)
 }
 
-function getTaskList() {
-    axios.get('https://plan-my-dayapp.herokuapp.com/tasks/user/3')
+function getTaskList(user) {
+    console.log('this is user in the function',user)
+    axios.get(`http://localhost:8080/tasks/slack/${user}`)
         .then(res => {
             let tasks = res.data
-            console.log(tasks)
 
             var params = {
                 icon_emoji: ':cat:'
