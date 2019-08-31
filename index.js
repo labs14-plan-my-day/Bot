@@ -25,7 +25,7 @@ bot.on('error', err => console.log(err));
 
 //message
 bot.on('message', data => {
-  console.log(data.user);
+  console.log('BOT ON MESSAGE: ', data.user);
   let user = data.user;
   if (data.type !== 'message') {
     return;
